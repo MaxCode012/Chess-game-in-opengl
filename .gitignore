@@ -1,0 +1,12 @@
+/build/
+/out/
+
+.vscode/
+.cache/
+
+*.exe
+*.obj
+*.o
+*.pdb
+
+_deps/
