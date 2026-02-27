@@ -5,10 +5,17 @@
 #include "Mesh.h"
 
 // clang-format off
-float vertices[9] = {
-     -1.0f, -1.0f, 0.0f,  //Left
-     +0.0f, +1.0f, 0.0f,  //Middle
-     +1.0f, -1.0f, 0.0f,  //Right
+float vertices[] = {
+     0.5f,  0.5f, 0.0f,  
+     0.5f, -0.5f, 0.0f,  
+    -0.5f, -0.5f, 0.0f, 
+    -0.5f,  0.5f, 0.0f  
+};
+
+unsigned int indices[] = 
+{
+     0, 1, 3,
+     1, 2, 3
 };
 // clang-format on
 
@@ -35,8 +42,8 @@ int main()
           return -1;
      }
 
-     Mesh triangle(vertices, sizeof(vertices));
-     triangle.unbind();
+     Mesh square(vertices, sizeof(vertices), indices, sizeof(indices));
+     square.unbind();
 
      Shader shader("Shader/vertex.glsl", "Shader/fragment.glsl");
 
@@ -45,9 +52,9 @@ int main()
           glClear(GL_COLOR_BUFFER_BIT);
 
           shader.use();
-          triangle.bind();
+          square.bind();
 
-          glDrawArrays(GL_TRIANGLES, 0, triangle.vertCount);
+          glDrawElements(GL_TRIANGLES, square.indexCount, GL_UNSIGNED_INT, 0);
 
           glfwSwapBuffers(window);
           glfwPollEvents();
