@@ -7,7 +7,16 @@
       "request": "launch",
       // This points to the executable CMake built
       "program": "${command:cmake.launchTargetPath}",
-      "args": [],
+      "args": 
+      [
+      "-g",
+      "${workspaceFolder}/*.cpp",         // Compile all cpp in root
+      "${workspaceFolder}/Board/*.cpp",   // Compile all cpp in Board folder
+      "${workspaceFolder}/Shader/*.cpp",  // Compile all cpp in Shader folder
+      "-o",
+      "${fileDirname}/${fileBasenameNoExtension}.exe",
+    // ... (your -lglfw3, -lglad, etc.)
+      ],
       "stopAtEntry": false,
       "cwd": "${workspaceFolder}",
       "environment": [

@@ -18,11 +18,13 @@ find_package(OpenGL REQUIRED)
 
 add_executable(ChessGame 
     main.cpp 
+    Board/board.cpp
     Dependencies/glad/src/glad.c
 )
 
 target_include_directories(ChessGame PRIVATE 
+    ${CMAKE_CURRENT_SOURCE_DIR}             
+    ${CMAKE_CURRENT_SOURCE_DIR}/Board       # For Board.h
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glad/include
 )
-
 target_link_libraries(ChessGame PRIVATE glfw OpenGL::GL)
