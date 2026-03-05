@@ -1,6 +1,8 @@
 #pragma once
 #include "../Mesh.h"
 #include "../Shader/Shader.h"
+#include "../Tile/Tile.h"
+#include <vector>
 
 class Board
 {
@@ -11,6 +13,5 @@ public:
 
 private:
      Mesh *squareMesh;
-     float tileSize = 0.2f;
-     float startOffset = -0.8f;
+     std::vector<Tile> tiles;
 };
