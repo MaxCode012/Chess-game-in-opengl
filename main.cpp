@@ -55,11 +55,32 @@ int main()
 
      shader.setVec3("squareColor", 0.0f, 0.0f, 0.0f);
      Board board(vertices, sizeof(vertices), indices, sizeof(indices));
+     bool mouseWasPressed = false;
 
      while (!glfwWindowShouldClose(window))
      {
           int width, height;
           glfwGetFramebufferSize(window, &width, &height);
+
+          int leftState = glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT);
+
+          if (leftState == GLFW_PRESS && !mouseWasPressed)
+          {
+               // The moment the button goes DOWN
+               mouseWasPressed = true;
+
+               double x, y;
+               int w, h;
+               glfwGetCursorPos(window, &x, &y);
+               glfwGetWindowSize(window, &w, &h);
+
+               board.HandleClick(x, y, w, h);
+          }
+          else if (leftState == GLFW_RELEASE)
+          {
+               // Reset when the user lets go
+               mouseWasPressed = false;
+          }
 
           glClearColor(30.0f / 255.0f, 30.0f / 255.0f, 30.0f / 255.0f, 1.0f);
           glClear(GL_COLOR_BUFFER_BIT);

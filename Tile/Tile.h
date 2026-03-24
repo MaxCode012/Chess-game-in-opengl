@@ -7,7 +7,6 @@
 enum class TileState
 {
      IDLE,
-     HOVERED,
      SELECTED,
      VALID_TARGET
 };

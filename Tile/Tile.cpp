@@ -6,7 +6,7 @@ Tile::Tile(int row, int col, Mesh *sharedMesh) : m_mesh(sharedMesh)
      float y = startOffset + (row * tileSize);
      this->m_worldPos = glm::vec2(x, y);
 
-     if ((row + col) % 2 == 0)
+     if ((row + col) % 2 != 0)
      {
           this->m_baseColor = glm::vec3(0.8f, 0.8f, 0.7f);
      }
@@ -18,8 +18,15 @@ Tile::Tile(int row, int col, Mesh *sharedMesh) : m_mesh(sharedMesh)
 
 void Tile::Draw(Shader &shader)
 {
+     glm::vec3 finalColor = m_baseColor;
+
+     if (state == TileState::SELECTED)
+     {
+          finalColor += glm::vec3(0.15f);
+     }
+
      shader.setVec2("offset", m_worldPos.x, m_worldPos.y);
-     shader.setVec3("squareColor", m_baseColor.r, m_baseColor.g, m_baseColor.b);
+     shader.setVec3("squareColor", finalColor.r, finalColor.g, finalColor.b);
 
      m_mesh->bind();
      glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
