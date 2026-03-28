@@ -26,6 +26,8 @@ add_executable(ChessGame
     main.cpp 
     Board/Board.cpp
     Tile/Tile.cpp
+    Piece/Piece.cpp
+    Texture/Texture.cpp
     Dependencies/glad/src/glad.c
 )
 
@@ -33,6 +35,8 @@ target_include_directories(ChessGame PRIVATE
     ${CMAKE_CURRENT_SOURCE_DIR}             
     ${CMAKE_CURRENT_SOURCE_DIR}/Board
     ${CMAKE_CURRENT_SOURCE_DIR}/Tile
+    ${CMAKE_CURRENT_SOURCE_DIR}/Piece
+    ${CMAKE_CURRENT_SOURCE_DIR}/Texture
     ${CMAKE_CURRENT_SOURCE_DIR}/Dependencies/glad/include
 )
 target_link_libraries(ChessGame PRIVATE glfw OpenGL::GL glm::glm)

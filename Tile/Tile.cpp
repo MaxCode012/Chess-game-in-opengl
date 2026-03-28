@@ -22,7 +22,7 @@ void Tile::Draw(Shader &shader)
 
      if (state == TileState::SELECTED)
      {
-          finalColor += glm::vec3(0.15f);
+          finalColor += glm::vec3(0.2f);
      }
 
      shader.setVec2("offset", m_worldPos.x, m_worldPos.y);
