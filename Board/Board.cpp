@@ -23,31 +23,25 @@ void Board::Draw(Shader &shader)
 
 void Board::HandleClick(double xPos, double yPos, int windowWidth, int windowHeight)
 {
-     float xPercent = (float)xPos / windowWidth;
-     float yPercent = (float)yPos / windowHeight;
+     // Convert pixels to NDC (-1 to 1)
+     float mouseNDC_X = (2.0f * (float)xPos) / windowWidth - 1.0f;
+     float mouseNDC_Y = 1.0f - (2.0f * (float)yPos) / windowHeight;
 
-     yPercent = 1.0f - yPercent;
+     float aspect = (float)windowWidth / (float)windowHeight;
+     float correctedX = mouseNDC_X * aspect;
 
-     float boardLeft = 0.2f;
-     float boardRight = 0.8f;
-     float boardTop = 0.9f;
-     float boardBottom = 0.1f;
+     float startOffset = -0.8f;
+     float tileSize = 0.2f;
 
-     float boardWidthX = boardRight - boardLeft;
-     float boardWidthY = boardTop - boardBottom;
-
-     if (xPercent > boardLeft && xPercent <= boardRight && yPercent >= boardBottom && yPercent <= boardTop)
+     if (correctedX >= startOffset && correctedX <= (startOffset + 8 * tileSize) &&
+         mouseNDC_Y >= startOffset && mouseNDC_Y <= (startOffset + 8 * tileSize))
      {
-          float relativeX = xPercent - boardLeft;
-          float relativeY = yPercent - boardBottom;
+          int col = (int)((correctedX - startOffset) / tileSize);
+          int row = (int)((mouseNDC_Y - startOffset) / tileSize);
 
-          // floats 0.0 - 1.0
-          float normalizedX = relativeX / boardWidthX;
-          float normalizedY = relativeY / boardWidthY;
-
-          // numbers 0 - 7
-          int col = normalizedX * 8;
-          int row = normalizedY * 8;
+          // Clamp just in case of float rounding at the very edge
+          col = std::max(0, std::min(7, col));
+          row = std::max(0, std::min(7, row));
 
           int clickIndex = row * 8 + col;
 
