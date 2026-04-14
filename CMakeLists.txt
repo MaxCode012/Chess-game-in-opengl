@@ -24,15 +24,18 @@ find_package(OpenGL REQUIRED)
 
 add_executable(ChessGame 
     main.cpp 
+    Game/Game.cpp
     Board/Board.cpp
     Tile/Tile.cpp
     Piece/Piece.cpp
     Texture/Texture.cpp
+    stb_image.cpp
     Dependencies/glad/src/glad.c
 )
 
 target_include_directories(ChessGame PRIVATE 
     ${CMAKE_CURRENT_SOURCE_DIR}             
+    ${CMAKE_CURRENT_SOURCE_DIR}/Game             
     ${CMAKE_CURRENT_SOURCE_DIR}/Board
     ${CMAKE_CURRENT_SOURCE_DIR}/Tile
     ${CMAKE_CURRENT_SOURCE_DIR}/Piece
