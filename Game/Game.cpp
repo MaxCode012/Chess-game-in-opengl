@@ -2,10 +2,11 @@
 
 // clang-format off
 float vertices[] = {
-    1.0f, 1.0f, 0.0f,  // Top Right
-    1.0f, 0.0f, 0.0f,  // Bottom Right
-    0.0f, 0.0f, 0.0f,  // Bottom Left
-    0.0f, 1.0f, 0.0f   // Top Left 
+    //Positions        //UV Coordinates
+    1.0f, 1.0f, 0.0f,  1.0f, 1.0f, // Top Right
+    1.0f, 0.0f, 0.0f,  1.0f, 0.0f, // Bottom Right
+    0.0f, 0.0f, 0.0f,  0.0f, 0.0f, // Bottom Left
+    0.0f, 1.0f, 0.0f,  0.0f, 1.0f, // Top Left 
 };
 
 unsigned int indices[] = 
@@ -32,8 +33,12 @@ bool Game::Initialize(int width, int height, const char *title)
      if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
           return false;
 
+     glEnable(GL_BLEND);
+     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
      shader = std::make_unique<Shader>("Shader/vertex.glsl", "Shader/fragment.glsl");
      board = std::make_unique<Board>(vertices, sizeof(vertices), indices, sizeof(indices));
+     pawnTexture = std::make_unique<Texture>("Assets/gP.png");
 
      isRunning = true;
      return true;
@@ -74,6 +79,8 @@ void Game::Render()
      float aspect = (h > 0) ? (float)w / (float)h : 1.0f;
      shader->use();
      shader->setFloat("aspect", aspect);
+     shader->setInt("texture1", 0);
+     pawnTexture->Bind(0);
      board->Draw(*shader);
 
      glfwSwapBuffers(window);

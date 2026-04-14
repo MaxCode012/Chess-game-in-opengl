@@ -3,6 +3,7 @@
 #include <GLFW/glfw3.h>
 #include "Board/Board.h"
 #include "Shader/Shader.h"
+#include "Texture/Texture.h"
 #include <iostream>
 #include <memory>
 
@@ -19,6 +20,7 @@ private:
      GLFWwindow *window;
      std::unique_ptr<Board> board;
      std::unique_ptr<Shader> shader;
+     std::unique_ptr<Texture> pawnTexture;
 
      bool isRunning;
      bool mouseWasPressed;
