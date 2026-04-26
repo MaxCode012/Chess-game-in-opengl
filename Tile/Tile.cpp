@@ -16,7 +16,7 @@ Tile::Tile(int row, int col, Mesh *sharedMesh) : m_mesh(sharedMesh)
      }
 }
 
-void Tile::Draw(Shader &shader)
+void Tile::Draw(Shader &shader, Texture *pieceTexture)
 {
      glm::vec3 finalColor = m_baseColor;
 
@@ -27,6 +27,16 @@ void Tile::Draw(Shader &shader)
 
      shader.setVec2("offset", m_worldPos.x, m_worldPos.y);
      shader.setVec3("squareColor", finalColor.r, finalColor.g, finalColor.b);
+
+     if (piece != PieceType::NONE && pieceTexture != nullptr)
+     {
+          shader.setBool("usingTexture", true);
+          pieceTexture->Bind(0);
+     }
+     else
+     {
+          shader.setBool("usingTexture", false);
+     }
 
      m_mesh->bind();
      glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

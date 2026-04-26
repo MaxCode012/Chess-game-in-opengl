@@ -12,7 +12,7 @@ public:
      Board::Board(float *vertices, size_t vSize, unsigned int *indices, size_t iSize);
      ~Board() = default;
 
-     void Draw(Shader &shader);
+     void Draw(Shader &shader, Texture *pawnTexture);
      void HandleClick(double xPos, double yPos, int windowWidth, int windowHeight);
 
 private:

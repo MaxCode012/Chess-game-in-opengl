@@ -11,13 +11,14 @@ Board::Board(float *vertices, size_t vSize, unsigned int *indices, size_t iSize)
                tiles.emplace_back(row, col, squareMesh.get());
           }
      }
+     tiles[8].piece = PieceType::BPAWN;
 }
 
-void Board::Draw(Shader &shader)
+void Board::Draw(Shader &shader, Texture *pawnTexture)
 {
      for (auto &tile : tiles)
      {
-          tile.Draw(shader);
+          tile.Draw(shader, pawnTexture);
      }
 }
 

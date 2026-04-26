@@ -81,7 +81,7 @@ void Game::Render()
      shader->setFloat("aspect", aspect);
      shader->setInt("texture1", 0);
      pawnTexture->Bind(0);
-     board->Draw(*shader);
+     board->Draw(*shader, pawnTexture.get());
 
      glfwSwapBuffers(window);
 }

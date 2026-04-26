@@ -3,6 +3,7 @@
 #include <glm/glm.hpp>
 #include "Mesh.h"
 #include "Shader/Shader.h"
+#include "Texture/Texture.h"
 
 enum class TileState
 {
@@ -11,15 +12,33 @@ enum class TileState
      VALID_TARGET
 };
 
+enum class PieceType
+{
+     NONE,
+     WPAWN,
+     WBISHOP,
+     WROOK,
+     WKNIGHT,
+     WKING,
+     WQUEEN,
+     BPAWN,
+     BBISHOP,
+     BROOK,
+     BKNIGHT,
+     BKING,
+     BQUEEN
+};
+
 class Tile
 {
 public:
      Tile(int row, int col, Mesh *sharedMesh);
 
-     void Draw(Shader &shader);
+     void Draw(Shader &shader, Texture *pieceTexture);
 
      bool isEmpty = true;
      TileState state = TileState::IDLE;
+     PieceType piece = PieceType::NONE;
 
 private:
      Mesh *m_mesh;
